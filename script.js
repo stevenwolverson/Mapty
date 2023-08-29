@@ -1,7 +1,7 @@
 'use strict';
 
 class Workout {
-  data = new Date();
+  date = new Date();
   id = (Date.now() + '').slice(-10);
   clicks = 0;
 
@@ -60,7 +60,6 @@ class Cycling extends Workout {
   constructor(coords, distance, duration, elevationGain) {
     super(coords, distance, duration);
     this.elevationGain = elevationGain;
-    // this.type = 'cycling';
     this.calcSpeed();
     this._setDescription();
   }
@@ -114,8 +113,6 @@ class App {
   _loadMap(position) {
     const { latitude } = position.coords;
     const { longitude } = position.coords;
-    // console.log(`https://www.google.pt/maps/@${latitude},${longitude}`);
-
     const coords = [latitude, longitude];
 
     this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
@@ -170,7 +167,6 @@ class App {
     const duration = +inputDuration.value;
     const { lat, lng } = this.#mapEvent.latlng;
     console.log(this.#mapEvent);
-
     let workout;
 
     // If workout => running, create running object/class
@@ -179,9 +175,6 @@ class App {
 
       // Check if data is valid
       if (
-        // !Number.isFinite(distance) ||
-        // !Number.isFinite(duration) ||
-        // !Number.isFinite(cadence)
         !validInputs(distance, duration, cadence) ||
         !allPositive(distance, duration, cadence)
       )
